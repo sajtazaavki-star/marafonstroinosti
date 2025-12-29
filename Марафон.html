@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица замеров - Легкость внутри</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #e0f2f1 0%, #e1f5fe 50%, #f3e5f5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .page-container {
+            width: 210mm;
+            min-height: 297mm;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-title {
+            color: #2c7a7b;
+            letter-spacing: 0.2em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .table-header {
+            background: linear-gradient(to right, #2dcec2, #4db6e1);
+            color: white;
+        }
+
+        .input-cell {
+            border: none;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            padding: 4px;
+            transition: all 0.3s;
+            outline: none;
+            text-align: center;
+        }
+
+        .input-cell:focus {
+            background: white;
+            box-shadow: 0 0 0 2px rgba(45, 182, 172, 0.2);
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .page-container { 
+                box-shadow: none; 
+                border: none; 
+                width: 100%; 
+                margin: 0; 
+                backdrop-filter: none;
+                background: white;
+            }
+            .no-print { display: none !important; }
+            .input-cell { background: transparent !important; }
+        }
+
+        /* Стиль для контейнера логотипа */
+        .logo-placeholder {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div class="no-print fixed bottom-8 right-8 z-50">
+        <button onclick="window.print()" class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded-full shadow-xl transition transform hover:scale-105 flex items-center gap-2">
+            🖨️ Распечатать / Сохранить PDF
+        </button>
+    </div>
+
+    <div class="page-container relative z-10">
+        
+        <!-- ЛОГОТИП -->
+        <div class="logo-placeholder">
+            <!-- ВНИМАНИЕ: ВСТАВЬТЕ ССЫЛКУ НА ВАШ ЛОГОТИП НИЖЕ ВМЕСТО ТЕКСТА В КАВЫЧКАХ -->
+            <img src="A738AA98-EB27-4601-9619-64AE23BA338E.jpeg" alt="Логотип марафона">
+        </div>
+
+        <div class="text-center mb-12">
+            <h1 class="header-title text-4xl font-light uppercase mb-1">Легкость внутри</h1>
+            <div class="h-1 w-24 bg-gradient-to-right from-teal-300 to-blue-300 mx-auto rounded-full mb-2"></div>
+            <p class="text-teal-600/60 text-xs tracking-[0.4em] uppercase font-semibold">Ваш дневник преображения</p>
+        </div>
+
+        <div class="flex flex-wrap justify-between gap-6 mb-10 text-sm italic text-teal-800">
+            <div class="flex-1 min-w-[200px]">
+                <span>Прекрасная участница:</span>
+                <div class="border-b border-teal-200 w-full mt-1 min-h-[24px] outline-none" contenteditable="true"></div>
+            </div>
+            <div class="flex-1 min-w-[200px]">
+                <span>Моя заветная цель:</span>
+                <div class="border-b border-teal-200 w-full mt-1 min-h-[24px] outline-none" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden border border-teal-100/50 shadow-sm bg-white/40">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="table-header text-[10px] uppercase tracking-wider">
+                        <th class="px-4 py-4 text-center">День / Дата</th>
+                        <th class="px-2 py-4 text-center">Вес (кг)</th>
+                        <th class="px-2 py-4 text-center">Грудь</th>
+                        <th class="px-2 py-4 text-center">Талия</th>
+                        <th class="px-2 py-4 text-center">Живот</th>
+                        <th class="px-2 py-4 text-center">Бедра</th>
+                        <th class="px-4 py-4 text-left">Заметки и радости дня</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-teal-50">
+                    <script>
+                        const days = ["Старт", "День 3", "День 7", "День 14", "День 21", "День 28", "ФИНАЛ"];
+                        days.forEach((day) => {
+                            const isSpecial = day === "Старт" || day === "ФИНАЛ";
+                            document.write(`
+                            <tr class="${isSpecial ? 'bg-teal-50/50' : ''}">
+                                <td class="px-4 py-3 text-center font-semibold text-teal-700 border-r border-teal-50/50">${day}</td>
+                                <td class="px-2 py-3 border-r border-teal-50/50"><div class="input-cell w-full font-bold text-teal-600" contenteditable="true"></div></td>
+                                <td class="px-2 py-3 border-r border-teal-50/50"><div class="input-cell w-full" contenteditable="true"></div></td>
+                                <td class="px-2 py-3 border-r border-teal-50/50"><div class="input-cell w-full" contenteditable="true"></div></td>
+                                <td class="px-2 py-3 border-r border-teal-50/50"><div class="input-cell w-full" contenteditable="true"></div></td>
+                                <td class="px-2 py-3 border-r border-teal-50/50"><div class="input-cell w-full" contenteditable="true"></div></td>
+                                <td class="px-4 py-3"><div class="input-cell w-full text-left italic text-xs text-slate-500" contenteditable="true"></div></td>
+                            </tr>
+                            `);
+                        });
+                    </script>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-10 grid grid-cols-3 gap-6">
+            <div class="col-span-2 p-6 rounded-2xl bg-gradient-to-br from-white to-teal-50/50 border border-white">
+                <h3 class="text-teal-700 text-xs uppercase tracking-widest mb-3 font-bold">Моя мотивация:</h3>
+                <div class="text-sm italic text-slate-500 min-h-[80px] outline-none" contenteditable="true">
+                    Запишите здесь то, что вдохновляет вас двигаться вперед...
+                </div>
+            </div>
+            <div class="flex flex-col justify-center items-center p-4 text-center">
+                <div class="text-3xl text-teal-300 mb-2">✨</div>
+                <p class="text-[10px] text-teal-800/40 uppercase leading-relaxed">Сияй изнутри каждый день</p>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <p class="text-xs text-teal-300 tracking-[0.5em] uppercase italic">#ЛегкостьВнутри</p>
+        </div>
+    </div>
+
+</body>
+</html>
+
